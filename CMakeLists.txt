@@ -9,7 +9,7 @@ project(TourmaWorld)
 set (CMAKE_CXX_STANDARD 11)
 
 # CMAKE_SOURCE_DIR refers to the directory with the top-level CMakeLists.txt
-# Here, we're including include/ and lib/SFML-2.4.2/include
+# Here, we're including include/ and lib/SFML-2.5.1/include
 include_directories("${CMAKE_SOURCE_DIR}/include")
 include_directories("${CMAKE_SOURCE_DIR}/lib/SFML-2.5.1/include")
 
@@ -18,7 +18,10 @@ link_directories("${CMAKE_SOURCE_DIR}/lib/SFML-2.5.1/lib")
 
 # Create the executable. Make sure to list every source file (I generally add the headers as well)
 add_executable(TourmaWorld
-    src/main.cpp
+  include/main.h
+  src/main.cpp
+  include/Game.h
+  src/Game.cpp
 )
 
 # This links the executable on Windows and Mac - it shouldn't be too difficult to add Linux as well.
