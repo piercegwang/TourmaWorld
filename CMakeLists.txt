@@ -2,33 +2,49 @@
 # We use 3.1 for CMAKE_CXX_STANDARD
 cmake_minimum_required(VERSION 3.1)
 
+# Module path; path for other cmake files.
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
+
+# set(BIN_DIR ${PROJECT_SOURCE_DIR}/bin)
+set(TourmaWorld_VERSION_MAJOR 0)
+set(TourmaWorld_VERSION_MINOR 1)
+
 # Create a project. Find and replace TourmaWorld to give the project your own title.
 project(TourmaWorld)
 
 # Set the version of C++ being used. Here, C++11.
 set (CMAKE_CXX_STANDARD 11)
 
+if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
+ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -std=c++11")
+ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -g")
+ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -O2")
+elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
+ if (CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
+   string(REGEX REPLACE "/W[0-4]" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+ else()
+   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
+ endif()
+endif()
+
 # CMAKE_SOURCE_DIR refers to the directory with the top-level CMakeLists.txt
 # Here, we're including include/ and lib/SFML-2.5.1/include
 include_directories("${CMAKE_SOURCE_DIR}/include")
-include_directories("${CMAKE_SOURCE_DIR}/lib/SFML-2.5.1/include")
+include_directories("${CMAKE_SOURCE_DIR}/lib/SDL2.framework/Headers")
+include_directories("/usr/local/include")
 
-# Sets the directory where the linker will search for libraries. Necessary to find the .a (or .dylib, etc) files for SFML.
-link_directories("${CMAKE_SOURCE_DIR}/lib/SFML-2.5.1/lib")
+# Sets the directory where the linker will search for libraries. Necessary to find the .a (or .dylib, etc) files for SDL.
+link_directories("/usr/local/lib")
 
 # Create the executable. Make sure to list every source file (I generally add the headers as well)
 add_executable(TourmaWorld
-  include/main.h
   src/main.cpp
-  include/Game.h
-  src/Game.cpp
+  src/scene.cpp
 )
 
-# This links the executable on Windows and Mac - it shouldn't be too difficult to add Linux as well.
 # If you've branched out into different parts of SFML, you might need different libraries; they can be added here.
-if (APPLE)
-  target_link_libraries(TourmaWorld libsfml-graphics.2.5.1.dylib libsfml-window.2.5.1.dylib libsfml-system.2.5.1.dylib)
-endif (APPLE)
-if (WIN32)
-  target_link_libraries(TourmaWorld libsfml-graphics-d.a libsfml-window-d.a libsfml-system-d.a)
-endif (WIN32)
+target_link_libraries(TourmaWorld)
+
+# Test
+
+# install(TARGETS TourmaWorld RUNTIME DESTINATION ${BIN_DIR})
