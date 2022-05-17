@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.1)
 # Module path; path for other cmake files.
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
-# set(BIN_DIR ${PROJECT_SOURCE_DIR}/bin)
+set(BIN_DIR ${PROJECT_SOURCE_DIR}/bin)
 set(TourmaWorld_VERSION_MAJOR 0)
 set(TourmaWorld_VERSION_MINOR 1)
 
@@ -30,20 +30,26 @@ endif()
 # CMAKE_SOURCE_DIR refers to the directory with the top-level CMakeLists.txt
 # Here, we're including include/ and lib/SFML-2.5.1/include
 include_directories("${CMAKE_SOURCE_DIR}/include")
-include_directories("${CMAKE_SOURCE_DIR}/lib/SDL2.framework/Headers")
+# include_directories("${CMAKE_SOURCE_DIR}/lib")
 include_directories("/usr/local/include")
 
 # Sets the directory where the linker will search for libraries. Necessary to find the .a (or .dylib, etc) files for SDL.
 link_directories("/usr/local/lib")
+# link_directories("${CMAKE_SOURCE_DIR}/lib/SDL2")
 
 # Create the executable. Make sure to list every source file (I generally add the headers as well)
 add_executable(TourmaWorld
   src/main.cpp
-  src/scene.cpp
+  src/renderwindow.cpp
+  include/RenderWindow.hpp
+  src/entity.cpp
+  include/Entity.hpp
+  src/game.cpp
+  include/Game.hpp
 )
 
 # If you've branched out into different parts of SFML, you might need different libraries; they can be added here.
-target_link_libraries(TourmaWorld)
+target_link_libraries(TourmaWorld SDL2 SDL2_image)
 
 # Test
 
