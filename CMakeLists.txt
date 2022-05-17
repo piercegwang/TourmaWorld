@@ -29,7 +29,8 @@ endif()
 
 # CMAKE_SOURCE_DIR refers to the directory with the top-level CMakeLists.txt
 # Here, we're including include/ and lib/SFML-2.5.1/include
-include_directories("${CMAKE_SOURCE_DIR}/include")
+include_directories("${CMAKE_SOURCE_DIR}/src")
+# include_directories("${CMAKE_SOURCE_DIR}/src/Core")
 # include_directories("${CMAKE_SOURCE_DIR}/lib")
 include_directories("/usr/local/include")
 
@@ -39,13 +40,9 @@ link_directories("/usr/local/lib")
 
 # Create the executable. Make sure to list every source file (I generally add the headers as well)
 add_executable(TourmaWorld
-  src/main.cpp
-  src/renderwindow.cpp
-  include/RenderWindow.hpp
-  src/entity.cpp
-  include/Entity.hpp
-  src/game.cpp
-  include/Game.hpp
+  src/Main.cpp
+  src/Core/Engine.cpp
+  src/Core/Engine.hpp
 )
 
 # If you've branched out into different parts of SFML, you might need different libraries; they can be added here.
