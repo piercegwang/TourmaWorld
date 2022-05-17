@@ -3,3 +3,6 @@ gcc
 %h c++-header
 -I../include
 -Iinclude
+-Isrc/Core
+-Isrc/Graphics
+-Isrc
