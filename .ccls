@@ -5,4 +5,11 @@ gcc
 -Iinclude
 -Isrc/Core
 -Isrc/Graphics
+-Isrc/Physics
+-Isrc/Object
+-Isrc/Characters
+-Isrc/Animation
+-Isrc/Inputs
+-Isrc/Timer
+-Isrc/Map
 -Isrc

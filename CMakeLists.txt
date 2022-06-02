@@ -32,7 +32,12 @@ endif()
 include_directories("${CMAKE_SOURCE_DIR}/src")
 include_directories("${CMAKE_SOURCE_DIR}/src/Core")
 include_directories("${CMAKE_SOURCE_DIR}/src/Graphics")
-# include_directories("${CMAKE_SOURCE_DIR}/lib")
+include_directories("${CMAKE_SOURCE_DIR}/src/Physics")
+include_directories("${CMAKE_SOURCE_DIR}/src/Object")
+include_directories("${CMAKE_SOURCE_DIR}/src/Characters")
+include_directories("${CMAKE_SOURCE_DIR}/src/Animation")
+include_directories("${CMAKE_SOURCE_DIR}/src/Inputs")
+include_directories("${CMAKE_SOURCE_DIR}/src/Timer")
 include_directories("/usr/local/include")
 
 # Sets the directory where the linker will search for libraries. Necessary to find the .a (or .dylib, etc) files for SDL.
@@ -42,10 +47,25 @@ link_directories("/usr/local/lib")
 # Create the executable. Make sure to list every source file (I generally add the headers as well)
 add_executable(TourmaWorld
   src/Main.cpp
-  src/Core/Engine.cpp
   src/Core/Engine.h
-  src/Graphics/TextureManager.cpp
+  src/Core/Engine.cpp
   src/Graphics/TextureManager.h
+  src/Graphics/TextureManager.cpp
+  src/Physics/Vector2D.h
+  src/Physics/Transform.h
+  src/Physics/RigidBody.h
+  src/Object/IObject.h
+  src/Object/GameObject.h
+  src/Characters/Character.h
+  src/Characters/Player.h
+  src/Characters/Player.cpp
+  src/Animation/Animation.h
+  src/Animation/Animation.cpp
+  src/Inputs/Input.h
+  src/Inputs/Input.cpp
+  src/Timer/Timer.h
+  src/Timer/Timer.cpp
+  src/Map/Layer.h
 )
 
 # If you've branched out into different parts of SFML, you might need different libraries; they can be added here.

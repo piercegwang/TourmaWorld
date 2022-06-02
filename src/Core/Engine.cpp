@@ -1,10 +1,16 @@
 #include "Engine.h"
 #include "TextureManager.h"
+#include "Vector2D.h"
+#include "Transform.h"
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include "Player.h"
+#include "Input.h"
+#include "Timer.h"
 
 Engine* Engine::s_Instance = nullptr;
+Player *user = nullptr;
 
 Engine::Engine()
     :m_IsRunning(false)
@@ -30,7 +36,11 @@ bool Engine::Init()
         return false;
     }
 
-    TextureManager::GetInstance()->Load("tree", "../assets/textures/grass.png");
+    TextureManager::GetInstance()->Load("player", "../assets/textures/peter.png");
+    TextureManager::GetInstance()->Load("player_run", "../assets/textures/peter.png");
+    TextureManager::GetInstance()->Load("grass", "../assets/textures/grass.png");
+
+    user = new Player(new Properties("player", 100, 200, 32, 32));
 
     return (m_IsRunning = true);
 }
@@ -51,26 +61,20 @@ void Engine::Quit()
 
 void Engine::Update()
 {
+    float dt = Timer::GetInstance()->GetDeltaTime();
     // SDL_Log("Updating");
+    user->Update(dt);
 }
 void Engine::Render()
 {
     SDL_SetRenderDrawColor(m_Renderer, 124, 218, 254, 255);
     SDL_RenderClear(m_Renderer);
 
-    TextureManager::GetInstance()->Draw("tree", 100, 100, 347, 465);
+    user->Draw();
+    TextureManager::GetInstance()->Draw("grass", 300, 300, 128, 128);
     SDL_RenderPresent(m_Renderer);
 }
 void Engine::Events()
 {
-    SDL_Event event;
-    SDL_PollEvent(&event);
-    switch(event.type) {
-        case SDL_QUIT:
-            Quit();
-            break;
-        default:
-            break;
-    }
-
+    Input::GetInstance()->Listen();
 }
