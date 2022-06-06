@@ -1,0 +1,15 @@
+[package]
+name = "tourmaworld"
+version = "0.1.0"
+edition = "2021"
+authors = [
+    "Pierce Wang <pierce.g.wang@gmail.com>",
+]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[[bin]]
+name = "tourmaworld"
+
+[dependencies]
+sdl2 = "0.35.0"
