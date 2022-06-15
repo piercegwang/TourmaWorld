@@ -5,6 +5,7 @@ use sdl2::EventPump;
 use sdl2::rect::{Rect};
 use sdl2::event::{Event};
 use sdl2::keyboard::Keycode;
+use crate::input::*;
 
 use crate::core::timer::Timer;
 
@@ -14,6 +15,7 @@ pub struct Engine {
     pub sdl_renderer: Canvas<Window>,
     pub sdl_event_pump: EventPump,
     pub timer: crate::core::timer::Timer,
+    pub input_state: Input,
 }
 
 impl Engine {
@@ -29,6 +31,10 @@ impl Engine {
 
     pub fn is_running(&self) -> bool {
         self.is_running
+    }
+
+    pub fn stop(&mut self) {
+        self.is_running = false;
     }
 
     pub fn event(&mut self) {
@@ -76,6 +82,7 @@ pub fn init() -> Engine {
         sdl_renderer: renderer,
         sdl_event_pump: ctx.event_pump().unwrap(),
         timer: Timer{last_time: Instant::now(),
-                            delta_time: Duration::from_millis(0)},
+                     delta_time: Duration::from_millis(0)},
+        input_state: new(sdl_event_pump),
     }
 }
