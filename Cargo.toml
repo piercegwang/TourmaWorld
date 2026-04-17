@@ -1,5 +1,5 @@
 [package]
-name = "TourmaWorld"
+name = "tourmaworld"
 version = "0.1.0"
 edition = "2021"
 
@@ -15,3 +15,4 @@ opt-level = 3
 [dependencies]
 bevy = { version = "0.11.2", features = ["dynamic_linking"] }
 bevy_rapier2d = { version = "0.22.0", features = [ "simd-stable", "debug-render-2d" ] }
+serde = "1.0.188"
